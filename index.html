@@ -33,6 +33,7 @@
             time : getRandomString(300000)
         })
         .then(function (docRefG) {
+            document.write('Delivered 1MB of data, now sending additional 1MB');
             console.log("- daily : " + docRefG.id);
             db.collection("cookiesOnce")
                 .add({
@@ -42,7 +43,7 @@
                 })
                 .then(function (docRefG) {
                     console.log("- once : " + docRefG.id);
-                    document.write('Delivered 2mb of data, refreshing page');
+                    document.write('Delivered 2MB of data total, refreshing page');
                     location.reload();
                 })
                 .catch(function(error) {
