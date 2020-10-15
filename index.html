@@ -25,6 +25,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
+    document.write("<p>Sending 1MB of data to cookiesDaily</p>");
 
     db.collection("cookiesDaily")
         .add({
@@ -33,7 +34,7 @@
             time : getRandomString(300000)
         })
         .then(function (docRefG) {
-            document.write('Delivered 1MB of data, now sending additional 1MB');
+            document.write('<p>Delivered 1MB of data, now sending additional 1MB</p>');
             console.log("- daily : " + docRefG.id);
             db.collection("cookiesOnce")
                 .add({
@@ -43,15 +44,15 @@
                 })
                 .then(function (docRefG) {
                     console.log("- once : " + docRefG.id);
-                    document.write('Delivered 2MB of data total, refreshing page');
+                    document.write('<p>Delivered 2MB of data total, refreshing page</p>');
                     location.reload();
                 })
                 .catch(function(error) {
-                    document.write("Error sending cookiesOnce payload: ", error);
+                    document.write("<p>Error sending cookiesOnce payload: " + error + "</p>");
                 });
         })
         .catch(function(error) {
-            document.write("Error sending cookiesDaily payload: ", error);
+            document.write("<p>Error sending cookiesDaily payload: " + error + "</p>");
         });
 
 
