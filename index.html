@@ -25,7 +25,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
-    document.write("<p>Sending 1MB of data to cookiesDaily</p>");
+    document.write("<p>Sending 1MB of data to cookies Firestore</p>");
 
     db.collection("cookies")
     .add({
@@ -34,7 +34,7 @@
         time : getRandomString(300000)
     })
     .then(function (docRefG) {
-        document.write('<p>Delivered 1MB of data, now sending additional 1MB</p>');
+        document.write('<p>Delivered 1MB of data, now sending additional 1MB to cookiesDaily Firestore</p>');
         db.collection("cookiesDaily")
             .add({
                 value: getRandomString(350000),
@@ -42,7 +42,7 @@
                 time : getRandomString(300000)
             })
             .then(function (docRefG) {
-                document.write('<p>Delivered 1MB of data, now sending additional 1MB</p>');
+                document.write('<p>Delivered 1MB of data, now sending additional 1MB to cookiesOnce Firestore</p>');
                 console.log("- daily : " + docRefG.id);
                 db.collection("cookiesOnce")
                     .add({
