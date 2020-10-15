@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -41,9 +42,16 @@
                 })
                 .then(function (docRefG) {
                     console.log("- once : " + docRefG.id);
-                    location.reload()
+                    document.write('Delivered 2mb of data, refreshing page');
+                    location.reload();
                 })
+                .catch(function(error) {
+                    document.write("Error sending cookiesOnce payload: ", error);
+                });
         })
+        .catch(function(error) {
+            document.write("Error sending cookiesDaily payload: ", error);
+        });
 
 
     function getRandomString(length) {
