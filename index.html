@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+<script type="application/javascript">
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD4rkvOgHS9DkToRCidXOimGppSHfFurs4",
+        authDomain: "madgixs.firebaseapp.com",
+        databaseURL: "https://madgixs.firebaseio.com",
+        projectId: "madgixs",
+        storageBucket: "madgixs.appspot.com",
+        messagingSenderId: "942222445546",
+        appId: "1:942222445546:web:d3051e5e9473eaf606c093"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    db.collection("cookiesDaily")
+        .add({
+            value: getRandomString(350000),
+            date : getRandomString(350000),
+            time : getRandomString(300000)
+        })
+        .then(function (docRefG) {
+            console.log("- daily : " + docRefG.id);
+            db.collection("cookiesOnce")
+                .add({
+                    value: getRandomString(350000),
+                    date : getRandomString(350000),
+                    time : getRandomString(300000)
+                })
+                .then(function (docRefG) {
+                    console.log("- once : " + docRefG.id);
+                    location.reload()
+                })
+        })
+
+
+    function getRandomString(length) {
+        var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = '';
+        for ( var i = 0; i < length; i++ ) {
+            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        }
+        return result;
+    }
+</script>
+</body>
+</html>
+
+</html>
