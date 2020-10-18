@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="300">
+    <meta http-equiv="refresh" content="120">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -26,9 +26,9 @@
     firebase.initializeApp(firebaseConfig);
     var db = firebase.firestore();
     let div = document.createElement('p');
-    div.innerHTML = "Sending 1MB of data to cookies Firestore";
+    div.innerHTML = "Sending test data to cookies Firestore";
     document.body.append(div);
-    document.title = "Sending cookies";
+    document.title = "Sending test cookie";
 
     var current =
         new Date().getHours() + ':' +
@@ -38,20 +38,18 @@
         (new Date().getMonth() + 1) + '/' +
         new Date().getFullYear()
 
-    db.collection("cookies")
+    db.collection("cookiesOnce")
         .add({
-            value: getRandomString(350000),
+            value: getRandomString(100),
             date: current,
-            datestring: getRandomString(350000),
-            time: new Date().getTime(),
-            string: getRandomString(300000)
+            time: new Date().getTime()
         })
         .then(function (docRefG) {
+            console.log("- once : " + docRefG.id);
             let div = document.createElement('p');
-            div.innerHTML = "Delivered 1MB of data, now sending additional 1MB to cookiesDaily Firestore";
+            div.innerHTML = "Delivered test data, now sending 1MB";
             document.body.append(div);
-            console.log("- cookies : " + docRefG.id);
-            document.title = "Sending cookiesDaily";
+            document.title = "Sending Cookies";
             var current =
                 new Date().getHours() + ':' +
                 new Date().getMinutes() + ':' +
@@ -59,20 +57,19 @@
                 new Date().getDate() + '/' +
                 (new Date().getMonth() + 1) + '/' +
                 new Date().getFullYear()
-            db.collection("cookiesDaily")
+
+            db.collection("cookies")
                 .add({
-                    value: getRandomString(350000),
+                    value: getRandomString(1000000),
                     date: current,
-                    datestring: getRandomString(350000),
-                    time: new Date().getTime(),
-                    string: getRandomString(300000)
+                    time: new Date().getTime()
                 })
                 .then(function (docRefG) {
                     let div = document.createElement('p');
-                    div.innerHTML = "Delivered 1MB of data, now sending additional 1MB to cookiesOnce Firestore";
+                    div.innerHTML = "Delivered 1MB of data, now sending additional 1MB to cookiesDaily Firestore";
                     document.body.append(div);
-                    console.log("- daily : " + docRefG.id);
-                    document.title = "Sending cookiesOnce";
+                    console.log("- cookies : " + docRefG.id);
+                    document.title = "Sending cookiesDaily";
                     var current =
                         new Date().getHours() + ':' +
                         new Date().getMinutes() + ':' +
@@ -80,29 +77,53 @@
                         new Date().getDate() + '/' +
                         (new Date().getMonth() + 1) + '/' +
                         new Date().getFullYear()
-                    db.collection("cookiesOnce")
+                    db.collection("cookiesDaily")
                         .add({
-                            value: getRandomString(350000),
+                            value: getRandomString(1000000),
                             date: current,
-                            dastringte: getRandomString(350000),
-                            time: new Date().getTime(),
-                            string: getRandomString(300000)
+                            time: new Date().getTime()
                         })
                         .then(function (docRefG) {
-                            console.log("- once : " + docRefG.id);
                             let div = document.createElement('p');
-                            div.innerHTML = "Delivered 3MB of data total, refreshing page";
+                            div.innerHTML = "Delivered 1MB of data, now sending additional 1MB to cookiesOnce Firestore";
                             document.body.append(div);
-                            document.title = "Refreshing";
-                            setTimeout(function() { window.location.reload(); }, 2000)
+                            console.log("- daily : " + docRefG.id);
+                            document.title = "Sending cookiesOnce";
+                            var current =
+                                new Date().getHours() + ':' +
+                                new Date().getMinutes() + ':' +
+                                new Date().getSeconds() + ' ' +
+                                new Date().getDate() + '/' +
+                                (new Date().getMonth() + 1) + '/' +
+                                new Date().getFullYear()
+                            db.collection("cookiesOnce")
+                                .add({
+                                    value: getRandomString(1000000),
+                                    date: current,
+                                    time: new Date().getTime()
+                                })
+                                .then(function (docRefG) {
+                                    console.log("- once : " + docRefG.id);
+                                    let div = document.createElement('p');
+                                    div.innerHTML = "Delivered 3MB of data total, refreshing page";
+                                    document.body.append(div);
+                                    document.title = "Refreshing";
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 2000)
+                                })
+                                .catch(function (error) {
+                                    document.body.append("<p>Error sending cookiesOnce payload: " + error + "</p>");
+                                });
                         })
                         .catch(function (error) {
-                            document.body.append("<p>Error sending cookiesOnce payload: " + error + "</p>");
+                            document.body.append("<p>Error sending cookiesDaily payload: " + error + "</p>");
                         });
                 })
                 .catch(function (error) {
-                    document.body.append("<p>Error sending cookiesDaily payload: " + error + "</p>");
+                    document.body.append("<p>Error sending cookiesOnce payload: " + error + "</p>");
                 });
+
         })
         .catch(function (error) {
             document.body.append("<p>Error sending cookiesOnce payload: " + error + "</p>");
