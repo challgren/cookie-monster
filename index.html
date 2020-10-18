@@ -38,14 +38,14 @@
         (new Date().getMonth() + 1) + '/' +
         new Date().getFullYear()
 
-    db.collection("cookiesOnce")
+    db.collection("cookies")
         .add({
             value: getRandomString(100),
             date: current,
             time: new Date().getTime()
         })
         .then(function (docRefG) {
-            console.log("- once : " + docRefG.id);
+            console.log("- cookies test : " + docRefG.id);
             let div = document.createElement('p');
             div.innerHTML = "Delivered test data, now sending 1MB";
             document.body.append(div);
